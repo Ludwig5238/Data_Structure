@@ -1,5 +1,5 @@
 #include <stdio.h>
 
-int main(int, char**){
+int main(){
     printf("Hello, from Data_Structure!\n");
 }
