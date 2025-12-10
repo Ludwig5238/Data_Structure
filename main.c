@@ -4,46 +4,27 @@ const int List_Capacity = 10;
 int main()
 {
     SqList list;
-    if (InitList(&list, List_Capacity) == OK)
+    InitList(&list, List_Capacity);
+    for (int i = 1; i <= 10; i++)
     {
-        printf("List initialized successfully.\n");
+        InsertList(&list, i, i + i);
     }
-    else
-    {
-        printf("Failed to initialize the list.\n");
-        return 1;
-    }
-    for (int i = 1; i <= List_Capacity; i++)
-    {
-        InsertList(&list, i, i );
-    }
-    ElementType value;
-    if (GetElem(&list, 3, &value) == OK)
-    {
-        printf("%d\n", value);
-    }
-    else
-    {
-        printf("Failed to get the element.\n");
-    }
+    printf("List Length: %d\n", ListLength(&list));
+    printf("%d\n", list.capacity);
     DeleteList(&list, 5);
-    printf("List contents after insertion:\n");
-    for (int i = 0; i < list.length; i++)
+    for (int i = 1; i <= list.length; i++)
     {
-        printf("%d ", list.data[i]);
+        ElementType value;
+        GetElem(list, i, &value);
+        printf("Element %d: %d\n", i, value);
     }
-    printf("\n");
-
-    // Perform operations on the list
-
-    if (DestroyList(&list) == OK)
-    {
-        printf("List destroyed successfully.\n");
+    int pos = LocateElem(list, 12);
+    if (pos != -1) {
+        printf("Element 12 found at position: %d\n", pos);
+    } else {
+        printf("Element 12 not found.\n");
     }
-    else
-    {
-        printf("Failed to destroy the list.\n");
-    }
+    DestroyList(&list);
 
     return 0;
 }

@@ -3,101 +3,101 @@
 #include <stdlib.h>
 
 // 顺序线性表初始化
-Status InitList(SqList *list, int capacity)
+Status InitList(SqList *L, int LIST_SIZE)
 {
-    list->data = (ElementType *)malloc(capacity * sizeof(ElementType));
-    if (!list->data)
-    {
-        return ERROR;
-    }
-    list->length = 0;
-    list->capacity = capacity;
-    return OK;
-}
-// 在线性表第i个位置插入元素value
-Status InsertList(SqList *list, int i, ElementType value)
-{
-    if (i < 1 || i > list->length + 1)
-    {
-        return ERROR;
-    }
-    if (list->length >= list->capacity)
-    {
-        ElementType *newData = (ElementType *)realloc(list->data, (list->capacity * 2) * sizeof(ElementType));
-        if (!newData)
-        {
-            return ERROR;
-        }
-        list->data = newData;
-        list->capacity *= 2;
-    }
-    for (int index = list->length; index > i-1; index--)
-    {
-        list->data[index] = list->data[index - 1];
-    }
-    list->data[i - 1] = value;
-    list->length++;
-    return OK;
-}
-// 删除第i个元素
-Status DeleteList(SqList *list, int i)
-{
-    if (i < 1 || i > list->length)
-    {
-        return ERROR;
-    }
-    for (int index = i - 1; index < list->length - 1; index++)
-    {
-        list->data[index] = list->data[index + 1];
-    }
-    list->length--;
-    return OK;
-}
-// 将线性表清空
-Status ClearList(SqList *list)
-{
-    list->length = 0;
-    return OK;
-}
-// 判空
-Status IsEmpty(SqList *list)
-{
-    return list->length == 0 ? TRUE : FALSE;
-}
-// 返回线性表长度
-int ListLength(SqList *list)
-{
-    return list->length;
-}
-// 查找与给定值value相等的元素，返回其索引，若不存在则返回-1
-int LocateElem(SqList *list, ElementType value)
-{
-    for (int i = 0; i < list->length; i++)
-    {
-        if (list->data[i] == value)
-        {
-            return i + 1;
-        }
-    }
-    return -1;
-}
-// 使用*value返回第index个元素的值
-Status GetElem(SqList *list, int index, ElementType *value)
-{
-    if (index < 1 || index > list->length)
-    {
-        return ERROR;
-    }
-    *value = list->data[index - 1];
+    L->data = (ElementType *)malloc(LIST_SIZE * sizeof(ElementType));
+    if (!L->data)
+        exit(OVERFLOW);
+    L->length = 0;
+    L->capacity = LIST_SIZE;
     return OK;
 }
 
 // 销毁顺序线性表
-Status DestroyList(SqList *list)
+Status DestroyList(SqList *L)
 {
-    free(list->data);
-    list->data = NULL;
-    list->length = 0;
-    list->capacity = 0;
+    if (L->data)
+    {
+        free(L->data);
+        L->data = NULL;
+    }
+    L->length = 0;
+    L->capacity = 0;
     return OK;
+}
+
+// 返回线性表长度
+int ListLength(SqList *L)
+{
+    return L->length;
+}
+
+// 在第i个位置插入元素value
+Status InsertList(SqList *L, int i, ElementType e)
+{
+    if (i < 1 || i > L->length + 1)
+        return ERROR;
+    // 判断是否需要扩容
+    if (L->length >= L->capacity)
+    {
+        ElementType *newData = (ElementType *)realloc(L->data, (L->capacity + 10) * sizeof(ElementType));
+        if (!newData)
+            exit(OVERFLOW);
+        L->data = newData;
+        L->capacity += 5;
+    }
+    for (int j = L->length; j > i - 1; j--)
+    {
+        L->data[j] = L->data[j - 1];
+    }
+    L->data[i - 1] = e;
+    L->length++;
+    return OK;
+}
+
+// 使用*e返回顺序线性表第i个元素的值
+Status GetElem(SqList L, int i, ElementType *e)
+{
+    if (i < 1 || i > L.length)
+        return ERROR;
+    *e = L.data[i - 1];
+    return OK;
+}
+
+// 删除第i个元素
+Status DeleteList(SqList *L, int i)
+{
+    // 边界检查
+    if (i < 1 || i > L->length)
+        return ERROR;
+    for (int j = i - 1; j < L->length - 1; j++)
+    {
+        L->data[j] = L->data[j + 1];
+    }
+    L->length--;
+    return OK;
+}
+
+// 将线性表清空
+Status ClearList(SqList *L)
+{
+    L->length = 0;
+    return OK;
+}
+
+// 判空
+Status IsEmpty(SqList *L)
+{
+    return L->length == 0 ? TRUE : FALSE;
+}
+
+// 查找与给定值e相等的元素，返回其索引(在线性表中的位置)，若不存在则返回-1
+int LocateElem(SqList L, ElementType e)
+{
+    for (int i = 0; i < L.length; i++)
+    {
+        if (L.data[i] == e)
+            return i + 1; // 返回的是位置，所以要加1
+    }
+    return -1; // 未找到
 }
