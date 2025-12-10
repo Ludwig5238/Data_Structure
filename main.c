@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include "SqList/SqList.h"
-const int List_Capacity = 10;
+void SqListdemo();
 int main()
 {
+    SqListdemo();
+    return 0;
+}
+
+// 线性表测试程序
+void SqListdemo()
+{
+    int List_Capacity = 10;
     SqList list;
     InitList(&list, List_Capacity);
     for (int i = 1; i <= 10; i++)
@@ -19,12 +27,13 @@ int main()
         printf("Element %d: %d\n", i, value);
     }
     int pos = LocateElem(list, 12);
-    if (pos != -1) {
+    if (pos != -1)
+    {
         printf("Element 12 found at position: %d\n", pos);
-    } else {
+    }
+    else
+    {
         printf("Element 12 not found.\n");
     }
     DestroyList(&list);
-
-    return 0;
 }
