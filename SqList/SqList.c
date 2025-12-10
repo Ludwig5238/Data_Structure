@@ -46,9 +46,9 @@ Status InsertList(SqList *L, int i, ElementType e)
         L->data = newData;
         L->capacity += 5;
     }
-    for (int j = L->length; j > i - 1; j--)
+    for (int index = L->length; index > i - 1; index--)
     {
-        L->data[j] = L->data[j - 1];
+        L->data[index] = L->data[index - 1];
     }
     L->data[i - 1] = e;
     L->length++;
@@ -58,6 +58,7 @@ Status InsertList(SqList *L, int i, ElementType e)
 // 使用*e返回顺序线性表第i个元素的值
 Status GetElem(SqList L, int i, ElementType *e)
 {
+    // T(n) = O(1)
     if (i < 1 || i > L.length)
         return ERROR;
     *e = L.data[i - 1];
@@ -70,9 +71,9 @@ Status DeleteList(SqList *L, int i)
     // 边界检查
     if (i < 1 || i > L->length)
         return ERROR;
-    for (int j = i - 1; j < L->length - 1; j++)
+    for (int index = i - 1; index < L->length - 1; index++)
     {
-        L->data[j] = L->data[j + 1];
+        L->data[index] = L->data[index + 1];
     }
     L->length--;
     return OK;
@@ -94,10 +95,11 @@ Status IsEmpty(SqList *L)
 // 查找与给定值e相等的元素，返回其索引(在线性表中的位置)，若不存在则返回-1
 int LocateElem(SqList L, ElementType e)
 {
-    for (int i = 0; i < L.length; i++)
+    // T(n) = O(n) S(n) = O(1)
+    for (int index = 0; index < L.length; index++)
     {
-        if (L.data[i] == e)
-            return i + 1; // 返回的是位置，所以要加1
+        if (L.data[index] == e)
+            return index + 1; // 返回的是位置，所以要加1
     }
     return -1; // 未找到
 }
