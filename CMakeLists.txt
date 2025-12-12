@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.1.0)
 project(Data_Structure VERSION 0.1.0 LANGUAGES C)
 
-add_executable(Data_Structure main.c LinkList/LinkList.h LinkList/LinkList.c)
+add_executable(Data_Structure main.c)
 
