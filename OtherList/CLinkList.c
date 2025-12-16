@@ -10,6 +10,16 @@ Status InitCLinkList(CLinkList *L)
     return OK;
 }
 
+// 初始化具有尾指针的循环链表
+Status InitCTailList(CLinkList *L)
+{
+    *L = (CLinkList)malloc(sizeof(CNode));
+    if (!*L)
+        return ERROR;
+    (*L)->next = *L; // 头结点指向自己，形成循环
+    return OK;
+}
+
 // 创建尾指针循环链表
 Status CreateCTailList(CLinkList *L)
 {

@@ -1,57 +1,21 @@
 #include <stdio.h>
-#include "LinkList/LinkList.h"
+#include "Stack/LinkStack.h"
 
 int main()
 {
-    LinkList L;
-    if (InitList(&L) == OK)
-        printf("单链表初始化成功！\n");
-    else
-        printf("单链表初始化失败！\n");
-
-    if (CreateList(&L) == OK)
-    {
-        printf("单链表创建成功！\n");
-        ElemType e;
-        int length = ListLength(L);
-        for (int i = 1; i <= length; i++)
-        {
-            if (GetElem(L, i, &e) == OK)
-                printf("单链表的第 %d 个元素是: %d\n", i, e);
-            else
-                printf("获取第 %d 个元素失败！\n", i);
-        }
-    }
-    else
-        printf("单链表创建失败！\n");
-
-    if (SortList(&L) == OK)
-        printf("单链表排序成功！\n");
-    else
-        printf("单链表排序失败！\n");
-    // 遍历链表并打印元素
-    printf("排序后的单链表元素为:\n");
-    ElemType e;
-    int length = ListLength(L);
-    for (int i = 1; i <= length; i++)
-    {
-        if (GetElem(L, i, &e) == OK)
-            printf("%d ", e);
-        else
-            printf("获取第 %d 个元素失败！\n", i);
-    }
-    printf("\n");
-    ElemType searchElem = 50; // 假设要查找的元素值
-    int index;
-    if (LocateElem(L, searchElem, &index) == OK)
-        printf("元素 %d 在单链表中的位置是: %d\n", searchElem, index);
-    else
-        printf("元素 %d 不在单链表中！\n", searchElem);
-
-    if (DestroyList(&L) == OK)
-        printf("单链表销毁成功！\n");
-    else
-        printf("单链表销毁失败！\n");
+    LinkStack S;
+    InitLinkStack(&S);
+    LinkPush(&S, 10);
+    LinkPush(&S, 20);
+    LinkPush(&S, 30);
+    SElemType e;
+    LinkPop(&S, &e);
+    printf("Popped element: %d\n", e);
+    LinkGetTop(S, &e);
+    printf("Top element: %d\n", e);
+    LinkStackTraverse(S);
+    ClearLinkStack(&S);
+    DestroyLinkStack(&S);
 
     return 0;
 }
