@@ -1,0 +1,3 @@
+/Users/home/Code/Data_Structure/build/CMakeFiles/Data_Structure.dir
+/Users/home/Code/Data_Structure/build/CMakeFiles/edit_cache.dir
+/Users/home/Code/Data_Structure/build/CMakeFiles/rebuild_cache.dir
