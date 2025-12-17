@@ -19,7 +19,8 @@ typedef struct CNode
     struct CNode *next;
 } CNode, *CLinkList;
 
-
+// 初始化具有尾指针的循环链表
+Status InitCTailList(CLinkList *L);
 
 // 初始化循环链表
 Status InitCList(CLinkList *L);

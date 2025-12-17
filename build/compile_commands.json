@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/home/Code/Data_Structure/build",
+  "command": "/usr/bin/clang   -g -arch arm64 -o CMakeFiles/Data_Structure.dir/main.c.o -c /Users/home/Code/Data_Structure/main.c",
+  "file": "/Users/home/Code/Data_Structure/main.c",
+  "output": "CMakeFiles/Data_Structure.dir/main.c.o"
+},
+{
+  "directory": "/Users/home/Code/Data_Structure/build",
+  "command": "/usr/bin/clang   -g -arch arm64 -o CMakeFiles/Data_Structure.dir/Stack/LinkStack.c.o -c /Users/home/Code/Data_Structure/Stack/LinkStack.c",
+  "file": "/Users/home/Code/Data_Structure/Stack/LinkStack.c",
+  "output": "CMakeFiles/Data_Structure.dir/Stack/LinkStack.c.o"
+}
+]
