@@ -9,7 +9,7 @@ Status InitQueue(LinkQueue *Q)
     Q->front = (QueuePtr)malloc(sizeof(QNode));
     if (!Q->front)
         return ERROR; // 内存分配失败
-    
+
     Q->front->next = NULL;
     Q->rear = Q->front;
     return OK;
@@ -20,7 +20,7 @@ Status DestroyQueue(LinkQueue *Q)
 {
     // 清空队列中的所有元素
     ClearQueue(Q);
-    
+
     // 释放头结点
     if (Q->front)
     {
@@ -35,10 +35,10 @@ Status DestroyQueue(LinkQueue *Q)
 Status ClearQueue(LinkQueue *Q)
 {
     QueuePtr p, q;
-    
+
     if (!Q->front)
         return ERROR;
-    
+
     p = Q->front->next; // p指向第一个元素结点
     while (p)
     {
@@ -46,7 +46,7 @@ Status ClearQueue(LinkQueue *Q)
         free(p);
         p = q;
     }
-    
+
     Q->front->next = NULL;
     Q->rear = Q->front;
     return OK;
@@ -66,13 +66,13 @@ int QueueLength(LinkQueue Q)
 {
     int length = 0;
     QueuePtr p = Q.front->next; // 跳过头结点
-    
+
     while (p)
     {
         length++;
         p = p->next;
     }
-    
+
     return length;
 }
 
@@ -81,7 +81,7 @@ Status GetHead(LinkQueue Q, QElemType *e)
 {
     if (QueueEmpty(Q))
         return ERROR; // 队列空
-    
+
     *e = Q.front->next->data;
     return OK;
 }
@@ -90,17 +90,17 @@ Status GetHead(LinkQueue Q, QElemType *e)
 Status EnQueue(LinkQueue *Q, QElemType e)
 {
     QueuePtr p;
-    
+
     if (!Q->front)
         return ERROR;
-    
+
     p = (QueuePtr)malloc(sizeof(QNode));
     if (!p)
         return ERROR; // 内存分配失败
-    
+
     p->data = e;
     p->next = NULL;
-    
+
     Q->rear->next = p;
     Q->rear = p;
     return OK;
@@ -110,41 +110,34 @@ Status EnQueue(LinkQueue *Q, QElemType e)
 Status DeQueue(LinkQueue *Q, QElemType *e)
 {
     QueuePtr p;
-    
+
     if (QueueEmpty(*Q))
         return ERROR; // 队列空
-    
+
     p = Q->front->next; // p指向要出队的结点
     *e = p->data;
-    
+
     Q->front->next = p->next;
-    
+
     // 如果出队的是最后一个元素，需要更新rear指针
     if (Q->rear == p)
         Q->rear = Q->front;
-    
+
     free(p);
     return OK;
 }
 
 // 遍历队列
-Status QueueTraverse(LinkQueue Q, void (*visit)(QElemType))
+Status QueueTraverse(LinkQueue Q)
 {
     QueuePtr p = Q.front->next; // 跳过头结点
-    
-    if (QueueEmpty(Q))
-    {
-        printf("队列为空\n");
-        return OK;
-    }
-    
-    printf("队列元素: ");
+
     while (p)
     {
-        visit(p->data);
+        printf("%d ", p->data);
         p = p->next;
     }
     printf("\n");
-    
+
     return OK;
 }

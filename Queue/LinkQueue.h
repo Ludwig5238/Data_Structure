@@ -41,6 +41,6 @@ Status EnQueue(LinkQueue *Q, QElemType e);
 // 出队
 Status DeQueue(LinkQueue *Q, QElemType *e);
 // 遍历队列
-Status QueueTraverse(LinkQueue Q, void (*visit)(QElemType));
+Status QueueTraverse(LinkQueue Q);
 
 #endif // LINKQUEUE_H
