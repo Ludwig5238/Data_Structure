@@ -1,15 +1,20 @@
 #include <stdio.h>
-#include "String/SqString.h"
+#include "Tree/BinaryTree.h"
+
 int main()
 {
-    // 示例用法
-    SqString S, T;
-    InitString(&S);
-    StrAssign(&S, "hello world");
-    InitString(&T);
-    StrAssign(&T, "world");
-    int pos = KMP_Index(S, T, 1);
-    printf("Position: %d\n", pos);
-    
+    BiTree T;
+    InitBiTree(&T);
+    // Further operations can be performed on the binary tree T
+    CreateBiTree(&T);
+    printf("Pre-order traversal: ");
+    PreOrderTraverse(T, Visit);
+    printf("\nIn-order traversal: ");
+    InOrderTraverse(T, Visit);
+    printf("\nPost-order traversal: ");
+    PostOrderTraverse(T, Visit);
+    printf("\n");
+    DestroyBiTree(&T);
+
     return 0;
 }

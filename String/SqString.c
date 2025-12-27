@@ -1,6 +1,6 @@
 #include "SqString.h"
 #include <stdio.h>
-
+// 重点KMP算法
 // 初始化
 Status InitString(SqString *T)
 {
