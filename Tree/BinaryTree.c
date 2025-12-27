@@ -1,8 +1,8 @@
 #include "BinaryTree.h"
-#include "../Stack/LinkStack.h"
-#include "../Queue/LinkQueue.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "../Stack/LinkStack.h"
+#include "../Queue/LinkQueue.h"
 // 重点：二叉树遍历
 // 二叉树的操作
 int InitBiTree(BiTree *T)
@@ -21,10 +21,28 @@ int DestroyBiTree(BiTree *T)
     }
     return OK;
 }
+int CreateBiTreeFromString(BiTree *T, const char *input)
+{
+    static int index = 0; // 使用static变量记录当前处理的位置
+    TElemType ch = input[index++];
+    if (ch == '#')
+        *T = NULL;
+    else
+    {
+        *T = (BiTree)malloc(sizeof(BiTNode));
+        if (!*T)
+            return ERROR;
+        (*T)->data = ch;
+        CreateBiTreeFromString(&(*T)->lchild, input);
+        CreateBiTreeFromString(&(*T)->rchild, input);
+    }
+    return OK;
+}
 int CreateBiTree(BiTree *T)
 {
     TElemType ch;
-    scanf(" %c", &ch); // 注意：%c前面加了空格，会自动跳过空白字符
+    printf("Input node value (use '#' for NULL): ");
+    scanf(" %c", &ch);
     if (ch == '#')
         *T = NULL;
     else
@@ -103,23 +121,23 @@ int Visit(TElemType e)
 int InOrderTraverseNonRecursion(BiTree T, int (*Visit)(TElemType))
 {
     LinkStack S;
-    InitStack(&S);
+    InitLinkStack(&S);
     BiTree p = T;
-    while (p || !StackEmpty(S))
+    while (p || !LinkStackEmpty(S))
     {
-        while (p)
+        if (p != NULL)
         {
-            Push(&S, p);
+            LinkPush(&S, (SElemType)p);
             p = p->lchild;
         }
-        if (!StackEmpty(S))
+        else
         {
-            Pop(&S, &p);
+            LinkPop(&S, (SElemType *)&p);
             Visit(p->data);
             p = p->rchild;
         }
     }
-    DestroyStack(&S);
+    DestroyLinkStack(&S);
     return OK;
 }
 // 二叉树层序遍历算法
@@ -129,15 +147,15 @@ int LevelOrderTraverse(BiTree T, int (*Visit)(TElemType))
     InitQueue(&Q);
     BiTree p;
     if (T)
-        EnQueue(&Q, T);
+        EnQueue(&Q, (QElemType)T);
     while (!QueueEmpty(Q))
     {
-        DeQueue(&Q, &p);
+        DeQueue(&Q, (QElemType *)&p);
         Visit(p->data);
         if (p->lchild)
-            EnQueue(&Q, p->lchild);
+            EnQueue(&Q, (QElemType)p->lchild);
         if (p->rchild)
-            EnQueue(&Q, p->rchild);
+            EnQueue(&Q, (QElemType)p->rchild);
     }
     DestroyQueue(&Q);
     return OK;

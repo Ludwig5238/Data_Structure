@@ -7,7 +7,7 @@
 #define TRUE 1
 
 typedef int Status;
-typedef int SElemType;
+typedef void *SElemType;
 
 // 链栈的存储结构
 typedef struct StackNode

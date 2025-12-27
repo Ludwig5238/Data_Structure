@@ -81,7 +81,7 @@ Status LinkStackTraverse(LinkStack S)
     StackNode *current = S;
     while (current)
     {
-        printf("%d ", current->data);
+        printf("%p ", current->data);
         current = current->next;
     }
     printf("\n");

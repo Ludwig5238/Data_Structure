@@ -7,7 +7,7 @@
 #define TRUE 1
 
 typedef int Status;
-typedef int QElemType;
+typedef void *QElemType;
 
 // 链队列的存储结构
 typedef struct QNode

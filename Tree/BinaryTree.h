@@ -17,6 +17,8 @@ typedef struct BiTNode
 // 二叉树的操作
 int InitBiTree(BiTree *T);
 int DestroyBiTree(BiTree *T);
+// 从字符串创建二叉树
+int CreateBiTreeFromString(BiTree *T, const char *input);
 int CreateBiTree(BiTree *T);
 // 先序遍历
 int PreOrderTraverse(BiTree T, int (*Visit)(TElemType));
@@ -34,6 +36,5 @@ int LevelOrderTraverse(BiTree T, int (*Visit)(TElemType));
 
 // visit function example
 int Visit(TElemType e);
-
 
 #endif // BINARYTREE_H
