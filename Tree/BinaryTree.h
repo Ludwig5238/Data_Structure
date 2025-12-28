@@ -33,6 +33,12 @@ TElemType GetRoot(BiTree T);
 int InOrderTraverseNonRecursion(BiTree T, int (*Visit)(TElemType));
 // 二叉树层序遍历算法
 int LevelOrderTraverse(BiTree T, int (*Visit)(TElemType));
+// 复制二叉树
+int CopyBiTree(BiTree T, BiTree *NewT);
+// 计算二叉树结点总数
+int CountNodes(BiTree T);
+// 计算二叉树叶子结点数
+int CountLeaves(BiTree T);
 
 // visit function example
 int Visit(TElemType e);

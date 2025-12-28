@@ -117,6 +117,43 @@ int Visit(TElemType e)
     printf("%c ", e);
     return OK;
 }
+int CopyBiTree(BiTree T, BiTree *NewT)
+{
+    if (T == NULL)
+    {
+        *NewT = NULL;
+    }
+    else
+    {
+        *NewT = (BiTree)malloc(sizeof(BiTNode));
+        if (!*NewT)
+            return ERROR;
+        (*NewT)->data = T->data;
+        CopyBiTree(T->lchild, &(*NewT)->lchild); // 递归复制左子树
+        CopyBiTree(T->rchild, &(*NewT)->rchild); // 递归复制右子树
+    }
+    return OK;
+}
+
+// 计算二叉树结点总数
+int CountNodes(BiTree T)
+{
+    if (T == NULL)
+        return 0;
+    else
+        return 1 + CountNodes(T->lchild) + CountNodes(T->rchild);
+}
+// 计算二叉树叶子结点数
+int CountLeaves(BiTree T)
+{
+    if (T == NULL)
+        return 0;
+    if (T->lchild == NULL && T->rchild == NULL)
+        return 1;
+    else
+        return CountLeaves(T->lchild) + CountLeaves(T->rchild);
+}
+
 // 二叉树中序非递归遍历算法
 int InOrderTraverseNonRecursion(BiTree T, int (*Visit)(TElemType))
 {
@@ -141,13 +178,13 @@ int InOrderTraverseNonRecursion(BiTree T, int (*Visit)(TElemType))
     return OK;
 }
 // 二叉树层序遍历算法
-int LevelOrderTraverse(BiTree T, int (*Visit)(TElemType))
+int LevelOrderTraverse(BiTree root, int (*Visit)(TElemType))
 {
     LinkQueue Q;
     InitQueue(&Q);
     BiTree p;
-    if (T)
-        EnQueue(&Q, (QElemType)T);
+    if (root)
+        EnQueue(&Q, (QElemType)root);
     while (!QueueEmpty(Q))
     {
         DeQueue(&Q, (QElemType *)&p);
